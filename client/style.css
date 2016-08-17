@@ -1,0 +1,47 @@
+h1 {
+	margin: 0 auto;
+}
+
+body {
+	margin: 0;
+	background: url("https://wallpaperscraft.com/image/wow_cataclysm_world_of_warcraft_battle_warcraft_36596_3840x2160.jpg");
+	background-position: center center;
+	background-size: cover;
+	/*background: red;*/
+	background-repeat: no-repeat;
+}
+
+.login-form {
+	margin-left: 50px;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: rgba(255, 255, 255, 0.4);
+	display: inline-block;
+	border-radius: 10px;
+}
+
+.login-form input {
+	margin-left: 340px;
+	border-radius: 5px;
+	padding: 5px;
+	color: #f0f;
+}
+
+.epic-fail {
+	color: #fff;
+}
+
+.bad-login {
+	margin-left: 50px;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: rgba(255, 255, 255, 0.4);
+	display: block;
+	width: 250px;
+	border-radius: 10px;
+}
+
+.main {
+	text-align: center;
+	color: red;
+}
