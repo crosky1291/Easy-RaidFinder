@@ -3,7 +3,7 @@
   "version": "1.0",
   "license": "MIT",
   "install": {
-    "path": "client/libs"
+    "path": "./client/bower_components"
   },
   "ignore": [
     "**/.*",

@@ -7,8 +7,8 @@ var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var privateKey  = fs.readFileSync('./key.pem', 'utf8');
-var certificate = fs.readFileSync('./server.crt', 'utf8');
+var privateKey  = fs.readFileSync('./https_certificates/key.pem', 'utf8');
+var certificate = fs.readFileSync('./https_certificates/server.crt', 'utf8');
 var secrets = require('./secretInfo.js');
 var credentials = {
   key: privateKey,
