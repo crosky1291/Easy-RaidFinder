@@ -1,11 +1,10 @@
 {
-  "name": "angular-SB",
-  "version": "0.0.0",
-  "homepage": "https://github.com/CodesmithLLC/unit-7SB-angular",
-  "authors": [
-    "Robert Wilkinson <wilkinson.robert.a@gmail.com>"
-  ],
+  "name": "Easy-RaidFinder",
+  "version": "1.0",
   "license": "MIT",
+  "install": {
+    "path": "client/libs"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
@@ -15,8 +14,7 @@
   ],
   "dependencies": {
     "angular": "^1.5.0",
-    "angular-mocks": "^1.5.0",
-    "angular-route": "^1.5.0",
-    "angular-material": "^1.0.5",
+    "jquery": "^3.1.0",
+    "angular-route": "^1.5.8"
   }
 }

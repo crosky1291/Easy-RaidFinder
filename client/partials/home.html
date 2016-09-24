@@ -1,7 +1,7 @@
-<form class="login-form" ng-submit="login()">
+<form class="login-form">
 <h1>Welcome to Easy Raid-Finder</h1>
 <p>Login with Battle.net to join or make a raid..</p>
-<input type="Submit" value="Secure Login"></input>
+<input type="Submit" value="Secure Login" ng-click="login()"></input>
 </form>
 
 <form class="bad-login">
@@ -10,5 +10,7 @@
 		Password<input type="text" />
 	<input type="Submit">
 </form>
-<img ng-src="{{char.image}}" />
-
+<button ng-click="getCharacters()">get characters</button>
+<button></button>
+<img src="https://us.api.battle.net/wow/character/chogall/Animator?fields=appearance&locale=en_US&apikey=ew7sw57ke7f3rygybsy2vtdq8gz6cpmb
+">

@@ -5,9 +5,8 @@ h1 {
 body {
 	margin: 0;
 	background: url("https://wallpaperscraft.com/image/wow_cataclysm_world_of_warcraft_battle_warcraft_36596_3840x2160.jpg");
-	background-position: center center;
+	
 	background-size: cover;
-	/*background: red;*/
 	background-repeat: no-repeat;
 }
 

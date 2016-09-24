@@ -1,22 +1,16 @@
-var app = angular
-    .module('myApp', [
-        'ngRoute',
-        'Codesmith.HomeController',
-        'Codesmith.profileController',
-    ]);
+var app = angular.module('easyRaidFinder', ['ngRoute']);
 
 app.config(configFunction);
 
 function configFunction($routeProvider, $locationProvider) {
 
-    $routeProvider
-        .when('/', {
-            templateUrl: './partials/home.html',
-            controller: 'HomeController'
-        })
-        .when('/profile', {
-            url: '/profile',
-            templateUrl: './partials/profile.html',
-            controller: 'profileController'
-        })
+  $routeProvider
+    .when('/', {
+      templateUrl: './partials/home.html',
+      controller: 'homeCtrl'
+    })
+    .when('/profile', {
+      templateUrl: './partials/home.html',
+      controller: 'homeCtrl'
+    });
 }

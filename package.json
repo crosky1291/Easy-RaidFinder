@@ -1,23 +1,26 @@
 {
-  "name": "angular-skills-builder",
-  "version": "0.1.0",
-  "description": "Angular Skills Builder Codesmith.io",
-  "main": "index.js",
+  "name": "Easy-RaidFinder",
+  "version": "1.0.0",
+  "description": "Allow WoW players to quickly find a raid.",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha-phantomjs --web-security=false ./test/test.html"
+    "start": "nodemon server.js"
   },
-  "author": "",
+  "author": "Yandri-Sanchez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "chai": "^3.0.0",
-    "ecstatic": "^0.8.0",
-    "express": "^4.13.3",
-    "mocha": "^2.2.5",
-    "mocha-phantomjs": "^4.0.1",
-    "mongoose": "^4.5.5",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "file-system": "^2.2.1",
+    "https": "^1.0.0",
+    "mongodb": "^2.2.9",
     "nodemon": "^1.9.2",
-    "pem": "^1.8.3"
+    "passport": "^0.3.2",
+    "passport-bnet": "^1.2.1",
+    "query-string": "^4.2.3",
+    "request": "^2.75.0",
+    "util": "^0.10.3"
   }
 }

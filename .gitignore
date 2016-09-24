@@ -1,2 +1,4 @@
 node_modules
 client/lib
+secretInfo.js
+client/bower_components
