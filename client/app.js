@@ -9,8 +9,8 @@ function configFunction($routeProvider, $locationProvider) {
       templateUrl: './partials/home.html',
       controller: 'homeCtrl'
     })
-    .when('/profile', {
-      templateUrl: './partials/home.html',
-      controller: 'homeCtrl'
+    .when('/callback', {
+      templateUrl: './partials/secure.html',
+      controller: 'verificationCtrl'
     });
 }
