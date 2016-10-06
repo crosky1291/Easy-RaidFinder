@@ -39,14 +39,18 @@ app.post('/callback', function(req, res) {
   });
 
   request(tokenUri + token_params, function(error, response, body){
-    if (error) {
-      console.log(error);
+    var body = JSON.parse(body);
+
+    if (body.hasOwnProperty('access_token')) {
+
+      var token = body['access_token'];
+      res.send(token);
     } else {
-      console.log(body);
+      res.send('error'); 
     }
   });
 
- })
+})
 
 
 var httpsServer = https.createServer(credentials, app);

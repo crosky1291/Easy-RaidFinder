@@ -12,5 +12,10 @@ function configFunction($routeProvider, $locationProvider) {
     .when('/callback', {
       templateUrl: './partials/secure.html',
       controller: 'verificationCtrl'
+    })
+    .when('/profile', {
+      templateUrl: './partials/profile.html',
+      controller: 'userCtrl'
     });
+
 }
