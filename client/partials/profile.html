@@ -1,1 +1,13 @@
 <h1>Welcome to my profile</h1>
+
+<div ng-controller="userCtrl">
+  <form name="myForm">
+    <label for="singleSelect"> Select Realm: </label><br>
+    <select name="singleSelect" ng-model="realmsInfo.currentRealm">
+      <option ng-repeat="(realm, chars) in realmsInfo.realmsData" value="{{realm}}">{{realm}}</option>
+    </select>
+    <ul>
+      <li ng-repeat="char in realmsInfo.realmsData[realmsInfo.currentRealm]">{{char.name}} | {{char.level}} | {{char.race}} </li>
+    </ul>
+  </form>
+</div>

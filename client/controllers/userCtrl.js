@@ -15,7 +15,10 @@ angular.module('easyRaidFinder')
     $scope.processCharacters(res.data.characters);
   })
 
-  $scope.realmInfo;
+  $scope.realmsInfo = {
+    currentRealm: "",
+    realmsData: ""
+  };
 
 
   $scope.processCharacters = function(chars) {
@@ -46,13 +49,20 @@ angular.module('easyRaidFinder')
       realms[charRealm].push(charInfo);
     })  
 
-
-
-    $scope.realmInfo = realms;
-    console.log($scope.realmInfo);
+    $scope.realmsInfo.realmsData = realms;
   }
 
-  console.log($scope.realmInfo);
+  $scope.log = function() {
+    console.log($scope.realmInfo.selectedRealm);
+  }
 
 
 });
+
+
+
+
+
+
+
+
