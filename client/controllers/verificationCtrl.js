@@ -12,7 +12,8 @@ angular.module('easyRaidFinder')
       //couldnt get $location to work here after much research fell back to good'ol javascript.
       window.location.href = "https://localhost:3000";
     } else {
-      localStorage.setItem( 'access_token', res.data)
+      localStorage.setItem( 'battleTag', res.data.battleTag);
+      localStorage.setItem( 'access_token', res.data.accessToken);
       $location.path('/profile');
     }
   });

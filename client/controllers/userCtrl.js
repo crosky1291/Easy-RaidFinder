@@ -9,11 +9,19 @@ angular.module('easyRaidFinder')
     $location.path('/');
   }
 
-  var charactersApi = 'https://us.api.battle.net/wow/user/characters'
+  
 
-  $http.get(charactersApi + "?access_token=" + accessToken).then(function(res) {
-    $scope.processCharacters(res.data.characters);
-  })
+  $scope.getCharacters = function(){
+    var charactersApi = 'https://us.api.battle.net/wow/user/characters';
+
+    $http.get(charactersApi + "?access_token=" + accessToken)
+    .then(function(res) {
+      $scope.processCharacters(res.data.characters);
+    });
+  }();
+
+  $scope.user = localStorage.getItem("battleTag");
+  
 
   $scope.realmsInfo = {
     currentRealm: "",
@@ -22,7 +30,7 @@ angular.module('easyRaidFinder')
 
 
   $scope.processCharacters = function(chars) {
-
+    console.log('hi');
     var realms = {};
     var classes = {0: 'none', 1: 'Warrior', 2: 'Paladin', 3: 'Hunter', 4: 'Rogue', 5: 'Priest',
                    6:'Death Knight', 7:'Shaman', 8:'Mage', 9:'Warlock', 10:'Monk', 11:'Druid', 12:'Demon Hunter'};
@@ -52,8 +60,11 @@ angular.module('easyRaidFinder')
     $scope.realmsInfo.realmsData = realms;
   }
 
-  $scope.log = function() {
-    console.log($scope.realmInfo.selectedRealm);
+  $scope.getRealmData = function(realm) {
+    console.log(realm);
+    $http.get( '/realmData/' + realm , function(req, res) {
+
+    });
   }
 
 
