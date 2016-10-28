@@ -2,12 +2,18 @@ h1 {
 	margin: 0 auto;
 }
 
+p {
+	margin: 0;
+}
+
 body {
 	margin: 0;
-	background: url("https://wallpaperscraft.com/image/wow_cataclysm_world_of_warcraft_battle_warcraft_36596_3840x2160.jpg");
+	background: url("https://wallpaperscraft.com/image/wow_cataclysm_world_of_warcraft_battle_warcraft_36596_3840x2160.jpg"), #000;
 	
-	background-size: cover;
+	background-size: 100%;
 	background-repeat: no-repeat;
+  font-family: 'Open Sans', sans-serif;
+  color: #efefef;
 }
 
 .login-form {

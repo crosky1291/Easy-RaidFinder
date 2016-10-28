@@ -9,6 +9,32 @@ angular.module('easyRaidFinder')
     $location.path('/');
   }
 
+  $scope.timeRange = function(low, max, time) {
+    var output = [];
+
+    while (low <= max) {
+      if (time === 'hours') {
+        output.push(low);
+      } else {
+        if (low < 10) {
+          output.push("0" + low);
+        } else {
+          output.push(low);
+        }
+      }
+
+      low++;
+    }
+    return output;
+  }
+
+  $scope.getRealmSize = function() {
+
+    var realm = $scope.realmsInfo.currentRealm;
+    console.log($scope.realmsInfo.realmsData[realm].length);
+    return $scope.realmsInfo.realmsData[realm].length;
+  }
+
   
 
   $scope.getCharacters = function(){
@@ -21,13 +47,99 @@ angular.module('easyRaidFinder')
   }();
 
   $scope.user = localStorage.getItem("battleTag");
-  
+  $scope.pickRealm = true;
+  $scope.noPostsFound = false;
+  $scope.makeRaid = false;
 
   $scope.realmsInfo = {
     currentRealm: "",
     realmsData: ""
   };
 
+  $scope.raidPost = {
+    name: "",
+    date: "",
+    hour: "",
+    minute: "",
+    amPm: "",
+    faction: "",
+    role: "",
+    character: ""
+  };
+
+
+  $scope.selectedCharacter;
+  $scope.emptyField = false;
+  $scope.completeTimeFormat = false;
+
+  $scope.currentCharacter = function() {
+    $scope.realmsInfo.realmsData[$scope.realmsInfo.currentRealm].forEach(function(char) {
+
+      if (char.name === $scope.selectedCharacter) {
+        return $scope.raidPost.character = char;
+      }
+    });
+  }
+
+
+  $scope.verifyTimeFormat = function() {
+    if (!$scope.raidPost.hour || !$scope.raidPost.minute || !$scope.raidPost.amPm) {
+        $scope.completeTimeFormat = false;
+    } else {
+        $scope.completeTimeFormat = true;
+    }
+  }
+
+
+
+  $scope.verifyForm = function() {
+    var missing = [];
+    
+    for (var prop in $scope.raidPost) {
+      if ($scope.raidPost[prop] === "") {
+        missing.push(prop);
+        $scope.emptyField = true;
+      }
+    }
+    
+    if (missing.length === 0) {
+      console.log('calling it');
+      return createRaid();
+    }
+
+    $scope.verifyTimeFormat();
+
+  }
+
+
+
+
+  $scope.nextSevenDays = function() {
+    var days = ['Today', ];
+    var oneDay = 86400000;
+    var nextDay = Date.now() + oneDay;
+
+
+    for (var i = 0; i < 6; i++) {
+      var parsed = new Date(nextDay);
+      var year = parsed.getFullYear().toString();
+
+      parsed = parsed.toString();
+      var date = parsed.split(year)[0] + year;
+
+      days.push(date);
+      nextDay = nextDay + oneDay;
+    }
+
+    return days;
+  }
+
+
+  function createRaid() {
+    $scope.raidPost.realm = $scope.realmsInfo.currentRealm
+
+    $http.post("/createRaid", $scope.raidPost);
+  }
 
   $scope.processCharacters = function(chars) {
     console.log('hi');
@@ -42,12 +154,17 @@ angular.module('easyRaidFinder')
     chars.forEach(function(char) {
       var charRealm = char.realm;
 
+      var classPath = classes[char.class].split(" ").join("").toLowerCase();
+      var imgPath = '../images/class_photos/' + classPath + '.png';
+
       var charInfo = {
         name: char.name,
         level: char.level,
         class: classes[char.class],
+        classImg: imgPath,
         race: races[char.race],
         gender: genders[char.gender]
+
       }
 
       if (realms[charRealm] === undefined) {
@@ -60,11 +177,31 @@ angular.module('easyRaidFinder')
     $scope.realmsInfo.realmsData = realms;
   }
 
-  $scope.getRealmData = function(realm) {
-    console.log(realm);
-    $http.get( '/realmData/' + realm , function(req, res) {
 
+  function displayPosts() {
+
+  }
+  $scope.raidsFound = false;
+  $scope.posts;
+  $scope.getRealmData = function(realm) {
+    $http.get( '/realmData/' + realm)
+    .then(function(req, res) {
+  
+      if (req.data === "no posts found") {
+        $scope.noPostsFound = true;
+      } else {
+        $scope.raidsFound = true;
+        $scope.posts = req.data;
+        console.log(req.data)
+      }
     });
+  }
+
+  $scope.
+  $scope.joinRaid = function(event) {
+
+    $http.post('/joinRaid')
+    console.log(event.target.getAttribute('dbId'));
   }
 
 
