@@ -114,7 +114,6 @@ app.get('/posts/:realm', function(req, res) {
   var Posts = mongoose.model('Posts', postSchema);
 
   Posts.find({ realm: realm}, function(err, posts) {
-    console.log(posts)
     if (err) {
       console.log(err);
     }
@@ -148,6 +147,7 @@ app.post('/createRaid', function(req, res) {
 
     newPost.whosGoing.push(thisChar);
     newPost.save();
+    res.send(200);
 });
 
 app.post('/joinRaid', function(req, res) {
@@ -163,6 +163,7 @@ app.post('/joinRaid', function(req, res) {
   Posts.findById(postId, function(err, post)  {
     post.whosGoing.push(thisChar);
     post.save();
+    res.send(200);
   })
 })
 

@@ -13,7 +13,7 @@
   </form>
 </div>
 
-<div id="main-info" ng-show="!noPostsFound">
+<div id="main-info" ng-show="display.loadingPage">
   <div id="what-to-do">
     <p>Let's get Started!</p>
   </div>
@@ -28,14 +28,14 @@
 </div>
 
 
-<div id="post-data" ng-show="noPostsFound && !makeRaid">
+<div id="post-data" ng-show="display.noPostsFound">
   <div id="what-to-do">
     <p>Sorry no Raid Posts were found for <{{realmsInfo.currentRealm}}>.</p>
   </div>
-  <button ng-click="makeRaid = true">Make a Raid</button>
+  <button ng-click="changeDisplay('makeRaid')">Make a Raid</button>
 </div>
 
-<div id="make-a-raid" ng-show="makeRaid">
+<div id="make-a-raid" ng-show="display.makeRaid">
   <p id="mkeRaid-title">You are now making a raid for <{{realmsInfo.currentRealm}}></p>
   <form id="createRaid">
     <div id="raid-title">
@@ -97,7 +97,8 @@
     <button  id="create-raid" type="submit" ng-click="verifyForm()">Create</button>
   </form>
 </div>
-<div id="raids-found" ng-show='raidsFound'>
+
+<div id="raids-found" ng-show='display.postsFound'>
   <div id='table-container'>
     <table>
       <thead>
@@ -122,7 +123,7 @@
     </table>
   </div> <!-- table-container -->
 </div>
-<div id='join-raid' >
+<div id='join-raid' ng-show='display.joinRaid'>
   <p>You are joining a raid for {{raidToJoin.name}}</p>
   <form>
     <div id="role">
@@ -139,7 +140,7 @@
           <option ng-repeat="n in realmsInfo.realmsData[realmsInfo.currentRealm]" value="{{n.name}}">{{n.name}}</option>
         </select>
       </div>
-      <div id="display-right">
+      <div id="display-right" ng-if='selectedCharacter'>
         <img src="{{raidPost.character.classImg}}" />
         <p id="charClass">{{raidPost.character.class}}</p>
         <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>

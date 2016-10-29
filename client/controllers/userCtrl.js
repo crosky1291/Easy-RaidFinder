@@ -103,7 +103,7 @@ angular.module('easyRaidFinder')
     }
     
     if (missing.length === 0) {
-      console.log('calling it');
+      $scope.selectedCharacter = "";
       return createRaid();
     }
 
@@ -126,14 +126,16 @@ angular.module('easyRaidFinder')
     }
     console.log(missing)
     if (missing.length === 0) {
-      console.log('joining');
       return joinRaid();
     }
 
   }
 
   function joinRaid() {
-    $http.post('/joinRaid', $scope.raidToJoin);
+    $http.post('/joinRaid', $scope.raidToJoin)
+    .then(function(req, res) {
+      $scope.getRealmData($scope.realmsInfo.currentRealm);
+    });
   }
 
   $scope.nextSevenDays = function() {
@@ -160,7 +162,10 @@ angular.module('easyRaidFinder')
   function createRaid() {
     $scope.raidPost.realm = $scope.realmsInfo.currentRealm
 
-    $http.post("/createRaid", $scope.raidPost);
+    $http.post("/createRaid", $scope.raidPost)
+    .then(function(req, res) {
+      $scope.getRealmData($scope.realmsInfo.currentRealm);
+    });
   }
 
   $scope.processCharacters = function(chars) {
@@ -200,6 +205,8 @@ angular.module('easyRaidFinder')
   }
 
 
+
+
   function displayPosts() {
 
   }
@@ -210,14 +217,28 @@ angular.module('easyRaidFinder')
     .then(function(req, res) {
   
       if (req.data === "no posts found") {
-        $scope.noPostsFound = true;
+        $scope.changeDisplay('noPostsFound');
       } else {
-        $scope.raidsFound = true;
         $scope.posts = req.data;
-        console.log(req.data)
+        $scope.changeDisplay('postsFound');
       }
     });
   }
+
+  $scope.display = {
+    loadingPage: true,
+    noPostsFound: false,
+    postsFound: false,
+    makeRaid: false,
+    joinRaid: false,
+  }
+
+  $scope.changeDisplay = function(display) {
+    for (var prop in $scope.display) {
+      prop === display ? $scope.display[prop] = true : $scope.display[prop] = false;
+    }
+  }
+
 
   $scope.raidToJoin = {
     id: "",
@@ -228,7 +249,9 @@ angular.module('easyRaidFinder')
   }
 
   $scope.joinRaid = function(event) {
+    $scope.changeDisplay('joinRaid');
     $scope.emptyField = false;
+    $scope.selectedCharacter = "";
     $scope.raidToJoin.id = event.target.getAttribute('dbId');
     $scope.raidToJoin.name = event.target.getAttribute('rName');
   }

@@ -37,7 +37,9 @@
 
 #main-info,
 #post-data,
-#make-a-raid {
+#make-a-raid,
+#raids-found,
+#join-raid {
   width: 500px;
   margin: 150px auto 0;
   background-color: rgba(0, 0, 0, 0.7);
