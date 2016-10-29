@@ -35,23 +35,13 @@ var userSchema = new mongoose.Schema({
   accNumber: String
 });
 
-var realmSchema = new mongoose.Schema({
-  realmName: String,
-  posts: { type: Array, "default": []}
-});
-
 var postSchema = new mongoose.Schema({
+  realm: String,
   raidName: String,
   raidDate: String,
   raidTime: String,
+  raidFaction: String,
   whosGoing: { type: Array, "default": []}
-});
-
-var charSchema = new mongoose.Schema({
-  name: String,
-  faction: String,
-  class: String,
-  role: String
 });
 
 
@@ -118,66 +108,63 @@ app.post('/callback', function(req, response) {
 
 })
 
-app.get('/realmData/:realm', function(req, res) {
+app.get('/posts/:realm', function(req, res) {
   var realm = req.params.realm;
 
-  var Realms = mongoose.model('realms', realmSchema);
-  var thisRealm = new Realms({realmName: realm});
+  var Posts = mongoose.model('Posts', postSchema);
 
-  Realms.findOne({ realmName: realm}, function(err, realm) {
-
+  Posts.find({ realm: realm}, function(err, posts) {
+    console.log(posts)
     if (err) {
       console.log(err);
     }
-    //if realm exits
-    if (realm) {
-      //if there are no posts for this realm
-      if (realm.posts.length === 0) {
-        return res.send('no posts found');
-      }
-
+    //if no posts
+    if (!posts.length) {
+       res.send('no posts found');
       //otherwise send the posts
-      return res.send(realm.posts);
     } else {
-    //if realm does not exits
-    //tell user no posts were found and save it to database
-      res.send('no posts found');
-    
-      thisRealm.save((err, result) => {
-      if (err) return console.log(err);
-        console.log('saved Realm to database')
-      });
+    //send the posts
+     return res.send(posts);
     }
   });
 });
 
 app.post('/createRaid', function(req, res) {
   var data = req.body;
-  var realm = data.realm;
 
-  var Post = mongoose.model('Post', postSchema)
+  var Post = mongoose.model('Posts', postSchema)
   var newPost = new Post({
+    realm: data.realm,
     raidName: data.name,
     raidDate: data.date,
     raidTime: data.hour + ":" + data.minute + " " + data.amPm,
+    raidFaction: data.faction,
   });
 
 
-    data.character.faction = data.faction;
     data.character.role = data.role;
 
     var thisChar = data.character;
 
     newPost.whosGoing.push(thisChar);
- 
-
-  var Realms = mongoose.model('realms', realmSchema);
-
-  Realms.findOne({realmName: realm}, function(err, realm) {
-    realm.posts.push(newPost);
-    realm.save();
-  })
+    newPost.save();
 });
+
+app.post('/joinRaid', function(req, res) {
+  var data = req.body;
+  var postId = data.id;
+  var realm = data.realm;
+  var thisChar = data.character;
+  thisChar.role = data.role;
+
+  var Posts = mongoose.model('Posts');
+
+    //var post = realm.posts._id(postId)
+  Posts.findById(postId, function(err, post)  {
+    post.whosGoing.push(thisChar);
+    post.save();
+  })
+})
 
 
 

@@ -112,7 +112,29 @@ angular.module('easyRaidFinder')
   }
 
 
+  $scope.verifyForm2 = function() {
+    var missing = [];
+    
+    $scope.raidToJoin.character = $scope.raidPost.character;
+    $scope.raidToJoin.realm = $scope.realmsInfo.currentRealm;
 
+    for (var prop in $scope.raidToJoin) {
+      if ($scope.raidToJoin[prop] === "") {
+        missing.push(prop);
+        $scope.emptyField = true;
+      }
+    }
+    console.log(missing)
+    if (missing.length === 0) {
+      console.log('joining');
+      return joinRaid();
+    }
+
+  }
+
+  function joinRaid() {
+    $http.post('/joinRaid', $scope.raidToJoin);
+  }
 
   $scope.nextSevenDays = function() {
     var days = ['Today', ];
@@ -184,7 +206,7 @@ angular.module('easyRaidFinder')
   $scope.raidsFound = false;
   $scope.posts;
   $scope.getRealmData = function(realm) {
-    $http.get( '/realmData/' + realm)
+    $http.get( '/posts/' + realm)
     .then(function(req, res) {
   
       if (req.data === "no posts found") {
@@ -197,11 +219,18 @@ angular.module('easyRaidFinder')
     });
   }
 
-  $scope.
-  $scope.joinRaid = function(event) {
+  $scope.raidToJoin = {
+    id: "",
+    character: "",
+    role: "",
+    name: "",
+    realm: ""
+  }
 
-    $http.post('/joinRaid')
-    console.log(event.target.getAttribute('dbId'));
+  $scope.joinRaid = function(event) {
+    $scope.emptyField = false;
+    $scope.raidToJoin.id = event.target.getAttribute('dbId');
+    $scope.raidToJoin.name = event.target.getAttribute('rName');
   }
 
 
