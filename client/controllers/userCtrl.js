@@ -67,15 +67,16 @@ angular.module('easyRaidFinder')
     character: ""
   };
 
-
+  $scope.postToJoin;
   $scope.selectedCharacter;
   $scope.emptyField = false;
   $scope.completeTimeFormat = false;
 
   $scope.currentCharacter = function() {
     $scope.realmsInfo.realmsData[$scope.realmsInfo.currentRealm].forEach(function(char) {
-
+      
       if (char.name === $scope.selectedCharacter) {
+        
         return $scope.raidPost.character = char;
       }
     });
@@ -91,7 +92,12 @@ angular.module('easyRaidFinder')
   }
 
 
-
+  $scope.showWhosGoing = false;
+  $scope.showWhosGoingFunc = function(event) {
+    $scope.showWhosGoing = true;
+    var post = event.target.getAttribute('post');
+    $scope.postToJoin = JSON.parse(post);
+  }
   $scope.verifyForm = function() {
     var missing = [];
     
@@ -124,7 +130,7 @@ angular.module('easyRaidFinder')
         $scope.emptyField = true;
       }
     }
-    console.log(missing)
+
     if (missing.length === 0) {
       return joinRaid();
     }
@@ -165,6 +171,11 @@ angular.module('easyRaidFinder')
     $http.post("/createRaid", $scope.raidPost)
     .then(function(req, res) {
       $scope.getRealmData($scope.realmsInfo.currentRealm);
+
+      //reset the create-character data
+      for (var i in $scope.raidPost) {
+        $scope.raidPost[i] = "";
+      }
     });
   }
 
@@ -206,16 +217,19 @@ angular.module('easyRaidFinder')
 
 
 
-
-  function displayPosts() {
-
-  }
   $scope.raidsFound = false;
   $scope.posts;
   $scope.getRealmData = function(realm) {
     $http.get( '/posts/' + realm)
     .then(function(req, res) {
-  
+      $scope.selectedCharacter = "";
+      
+     //reset the create-character data
+      for (var i in $scope.raidPost) {
+        $scope.raidPost[i] = "";
+      }
+
+
       if (req.data === "no posts found") {
         $scope.changeDisplay('noPostsFound');
       } else {
@@ -252,8 +266,10 @@ angular.module('easyRaidFinder')
     $scope.changeDisplay('joinRaid');
     $scope.emptyField = false;
     $scope.selectedCharacter = "";
-    $scope.raidToJoin.id = event.target.getAttribute('dbId');
-    $scope.raidToJoin.name = event.target.getAttribute('rName');
+    $scope.raidPost.character = "";
+    var post = JSON.parse(event.target.getAttribute('post'));
+    $scope.raidToJoin.id = post._id
+    $scope.raidToJoin.name = post.raidName;
   }
 
 
