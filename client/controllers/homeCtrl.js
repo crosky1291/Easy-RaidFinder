@@ -12,7 +12,7 @@ angular.module('easyRaidFinder')
   
 
   $scope.login = function() {
-
+   
     if (localStorage.getItem("access_token") === null) {
       var key = "p8cv56sm2p929sr6enw2wgmfyh6mrtd9";
       var oAuthUrl = "https://us.battle.net/oauth/authorize?";

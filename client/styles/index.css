@@ -20,33 +20,43 @@ body {
 	margin-left: 50px;
 	margin-top: 20px;
 	padding: 10px 20px;
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #FF794B;
 	display: inline-block;
 	border-radius: 10px;
 }
 
 .login-form input {
-	margin-left: 340px;
-	border-radius: 5px;
-	padding: 5px;
-	color: #f0f;
+	display: inline-block;
+	float: right;
+	position: relative;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	border-radius: 40px;
+	background-color: #FF794B;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-weight: bolder;
+	color: #222;
+	border: none;
+	cursor: pointer;
+	box-shadow: 0 6px #bF693B;
 }
 
-.epic-fail {
-	color: #fff;
+.login-form input:hover {
+	box-shadow: 0 4px #bF693B;
+	top: 2px;
 }
 
-.bad-login {
-	margin-left: 50px;
-	margin-top: 20px;
-	padding: 10px 20px;
-	background-color: rgba(255, 255, 255, 0.4);
+#credentials {
 	display: block;
-	width: 250px;
+	margin: 0 auto 0;
+	padding: 40px 200px;
+	background-color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #FF794B;
 	border-radius: 10px;
+	letter-spacing: 4px;
 }
 
-.main {
-	text-align: center;
-	color: red;
-}
+
+
