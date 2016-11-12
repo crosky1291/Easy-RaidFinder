@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('easyRaidFinder')
-.controller('userCtrl', function($scope, $http, $location) {
+function userCtrl ($scope, $http, $location) {
 
   var accessToken = localStorage.getItem("access_token");
 
@@ -220,7 +219,7 @@ angular.module('easyRaidFinder')
   $scope.raidsFound = false;
   $scope.posts;
   $scope.getRealmData = function(realm) {
-    $http.get( '/posts/' + realm)
+    $http.get( 'api/posts/' + realm)
     .then(function(req, res) {
       $scope.selectedCharacter = "";
       
@@ -233,6 +232,7 @@ angular.module('easyRaidFinder')
       if (req.data === "no posts found") {
         $scope.changeDisplay('noPostsFound');
       } else {
+        console.log(req.data)
         $scope.posts = req.data;
         $scope.changeDisplay('postsFound');
       }
@@ -271,9 +271,9 @@ angular.module('easyRaidFinder')
     $scope.raidToJoin.id = post._id
     $scope.raidToJoin.name = post.raidName;
   }
+}
 
-
-});
+module.exports = userCtrl;
 
 
 

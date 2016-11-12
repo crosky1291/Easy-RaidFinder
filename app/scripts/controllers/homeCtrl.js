@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('easyRaidFinder')
-.controller('homeCtrl', function($scope, dataService, $http, $location) {
+function homeCtrl ($scope, dataService, $http, $location) {
 
   var qs = $location.absUrl();
   if (qs.indexOf('code') !== -1) {
@@ -10,7 +9,7 @@ angular.module('easyRaidFinder')
     console.log("it dosent have code");
   }
   
-
+  console.log('hello')
   $scope.login = function() {
    
     if (localStorage.getItem("access_token") === null) {
@@ -25,4 +24,6 @@ angular.module('easyRaidFinder')
       $location.path('/profile');
     }
   }
-});
+};
+
+module.exports = homeCtrl;

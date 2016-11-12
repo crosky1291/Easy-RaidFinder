@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('easyRaidFinder')
-.controller('verificationCtrl', function($http, $location) {
+function verificationCtrl ($http, $location) {
   var url = window.location.href;
   var code = url.split('=')[1].split('#')[0];
 
@@ -17,4 +16,6 @@ angular.module('easyRaidFinder')
       $location.path('/profile');
     }
   });
-});
+};
+
+module.exports = verificationCtrl;

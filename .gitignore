@@ -1,5 +1,5 @@
 node_modules
-client/lib
-secretInfo.js
-client/libs
+public/libraries
+server/oauth/secretInfo.js
 .DS_Store
+npm-debug.log
