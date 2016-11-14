@@ -91,7 +91,7 @@
         </select>
       </div>
       <div id="display-right">
-        <img src="{{raidPost.character.classImg}}" />
+        <img src="{{raidPost.character.classImg}}" >
         <p id="charClass">{{raidPost.character.class}}</p>
         <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
       </div>
@@ -114,21 +114,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="post in posts">
-          <td id="rName">{{post.raidName}}</td>
-          <td id="rTime">{{post.raidDate}}<br> @ {{post.raidTime}} (ST)</td>
-          <td id="rGoing">
-            <span id='clickToSee' ng-click="showWhosGoingFunc($event)" post="{{post}}"> ({{post.whosGoing.length}}) haved joined<br>Click to see</span>
-          </td>
-          <td id="rNeeds">(2)Tanks<br>(3)Healers<br>(15)DPS</td>
-          <td id="rJoin"><span id="raid-join-button" ng-click="joinRaid($event)" post="{{post}}">Join</span></td>
-        </tr>
+        <tr raidpost></tr>
       </tbody>
     </table>
   </div> <!-- table-container -->
 </div>
 <div id='join-raid' ng-show='display.joinRaid'>
-  <p>You are joining a raid for {{raidToJoin.name}}</p>
+  <p>You are joining a raid for <{{raidToJoin.name}}</p>
   <form>
     <div id="role">
       <label for="role">Role: </label>
@@ -145,7 +137,7 @@
         </select>
       </div>
       <div id="display-right">
-        <img src="{{raidPost.character.classImg}}" />
+        <img src="{{raidPost.character.classImg}}" >
         <p id="charClass">{{raidPost.character.class}}</p>
         <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
       </div>
@@ -157,7 +149,7 @@
 
   <div  id="whosGoing-container" >
     <div class='charInfo' ng-repeat="player in postToJoin.whosGoing">
-      <span class="whosGoing whosGoingName">{{player.name}}</span><span class="whosGoing">{{player.level}}</span><span class="whosGoing whosGoingClass">{{player.class}}</span><span class="whosGoing"><img src="{{player.classImg}}"/></span>
+      <span class="whosGoing whosGoingName">{{player.name}}</span><span class="whosGoing">{{player.level}}</span><span class="whosGoing whosGoingClass">{{player.class}}</span><span class="whosGoing"><img src="{{player.classImg}}"></span>
     </div>
   </div>
 </div>

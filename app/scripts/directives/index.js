@@ -2,4 +2,4 @@
 
 var angular = require('angular');
 
-angular.module('easyRaidFinder').directive('home', require('./home'));
+angular.module('easyRaidFinder').directive('raidpost', require('./raidPost'));

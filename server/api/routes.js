@@ -10,7 +10,7 @@ router.get('/posts/:realm', (req, res) => {
   var thisRealm = req.params.realm;
 
   Realm.findOne({ realmName: thisRealm}, (err, realm) => {
-    
+
     if (err) {
       return res.status(500).send(err.message);
     }
@@ -22,9 +22,14 @@ router.get('/posts/:realm', (req, res) => {
         if (err) return console.log(err);
         return console.log('Successfully saved realm ' + thisRealm + ' to database.')
       })
-      //let client know that realm was not found.
-      return res.status(404);
+      
+    }
+
+    //let client know that there are no posts.
+    if (realm.posts.length === 0) {
+      return res.status(204).send();
     } 
+
     //if realm exits send the posts
     res.status(200).send(realm.posts);
   });

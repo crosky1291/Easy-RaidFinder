@@ -66,7 +66,7 @@ function userCtrl ($scope, $http, $location) {
     character: ""
   };
 
-  $scope.postToJoin;
+  $scope.postToJoin = {};
   $scope.selectedCharacter;
   $scope.emptyField = false;
   $scope.completeTimeFormat = false;
@@ -109,7 +109,7 @@ function userCtrl ($scope, $http, $location) {
     
     if (missing.length === 0) {
       $scope.selectedCharacter = "";
-      return createRaid();
+      return createRaid($scope.realmsInfo.currentRealm);
     }
 
     $scope.verifyTimeFormat();
@@ -137,7 +137,9 @@ function userCtrl ($scope, $http, $location) {
   }
 
   function joinRaid() {
-    $http.post('/joinRaid', $scope.raidToJoin)
+    var postId = $scope.raidToJoin.id;
+    var realm = $scope.raidToJoin.realm;
+    $http.put('/api/' + realm + "/" + postId , $scope.raidToJoin)
     .then(function(req, res) {
       $scope.getRealmData($scope.realmsInfo.currentRealm);
     });
@@ -164,10 +166,10 @@ function userCtrl ($scope, $http, $location) {
   }
 
 
-  function createRaid() {
+  function createRaid(realm) {
     $scope.raidPost.realm = $scope.realmsInfo.currentRealm
-
-    $http.post("/createRaid", $scope.raidPost)
+  
+    $http.post("/api/posts/" + realm, $scope.raidPost)
     .then(function(req, res) {
       $scope.getRealmData($scope.realmsInfo.currentRealm);
 
@@ -179,7 +181,7 @@ function userCtrl ($scope, $http, $location) {
   }
 
   $scope.processCharacters = function(chars) {
-    console.log('hi');
+    
     var realms = {};
     var classes = {0: 'none', 1: 'Warrior', 2: 'Paladin', 3: 'Hunter', 4: 'Rogue', 5: 'Priest',
                    6:'Death Knight', 7:'Shaman', 8:'Mage', 9:'Warlock', 10:'Monk', 11:'Druid', 12:'Demon Hunter'};
@@ -228,11 +230,9 @@ function userCtrl ($scope, $http, $location) {
         $scope.raidPost[i] = "";
       }
 
-
-      if (req.data === "no posts found") {
+      if (req.status === 204) {
         $scope.changeDisplay('noPostsFound');
       } else {
-        console.log(req.data)
         $scope.posts = req.data;
         $scope.changeDisplay('postsFound');
       }
@@ -248,9 +248,11 @@ function userCtrl ($scope, $http, $location) {
   }
 
   $scope.changeDisplay = function(display) {
+
     for (var prop in $scope.display) {
       prop === display ? $scope.display[prop] = true : $scope.display[prop] = false;
     }
+    console.log($scope.display);
   }
 
 
