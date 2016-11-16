@@ -1,6 +1,6 @@
 'use strict';
 
-function verificationCtrl ($http, $location) {
+function VerificationCtrl ($http, $location) {
   var url = window.location.href;
   var code = url.split('=')[1].split('#')[0];
 
@@ -18,4 +18,4 @@ function verificationCtrl ($http, $location) {
   });
 };
 
-module.exports = verificationCtrl;
+module.exports = VerificationCtrl;

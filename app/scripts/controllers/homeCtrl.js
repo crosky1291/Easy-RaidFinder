@@ -1,6 +1,6 @@
 'use strict';
 
-function homeCtrl ($scope, dataService, $http, $location) {
+function HomeCtrl ($scope, dataService, $http, $location) {
 
   var qs = $location.absUrl();
   if (qs.indexOf('code') !== -1) {
@@ -26,4 +26,4 @@ function homeCtrl ($scope, dataService, $http, $location) {
   }
 };
 
-module.exports = homeCtrl;
+module.exports = HomeCtrl;

@@ -3,5 +3,6 @@
 var angular = require('angular');
 
 angular.module('easyRaidFinder').controller('homeCtrl', require('./homeCtrl'));
-angular.module('easyRaidFinder').controller('userCtrl', require('./userCtrl'));
+angular.module('easyRaidFinder').controller('mainCtrl', require('./mainCtrl'));
+angular.module('easyRaidFinder').controller('raidPostsCtrl', require('./raidPostsCtrl'));
 angular.module('easyRaidFinder').controller('verificationCtrl', require('./verificationCtrl'));

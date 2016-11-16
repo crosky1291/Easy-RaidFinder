@@ -1,0 +1,15 @@
+<div id="main-info">
+  <div id="what-to-do">
+    <p>Let's get Started!</p>
+  </div>
+  <div id="pick-realm">
+  hello {{selectedRealm}}
+    <form name="select-realm" ng-controller='raidPostsCtrl'>
+      <label for="singleSelect"> Select a Realm: </label>
+      <select name="singleSelect" ng-model="selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" ng-change="getRealmData(selectedRealm)">
+        <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
+      </select>
+    </form>
+  </div>
+</div>
+

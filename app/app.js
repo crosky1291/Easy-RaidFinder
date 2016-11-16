@@ -2,7 +2,6 @@
 
 var angular = require('angular')
 var app = angular.module('easyRaidFinder', [require('angular-route')]);
-
 app.config(configFunction);
 
 function configFunction($routeProvider, $locationProvider) {
@@ -18,7 +17,7 @@ function configFunction($routeProvider, $locationProvider) {
     })
     .when('/profile', {
       template: require('../public/templates/profile.html'),
-      controller: 'userCtrl'
+      controller: 'mainCtrl'
     });
 
 }

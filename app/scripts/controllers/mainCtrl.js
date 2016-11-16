@@ -2,12 +2,20 @@
 
 function MainCtrl($scope, dataService) {
 
-$scope.getCharacters = function(){
-    var charactersApi = 'https://us.api.battle.net/wow/user/characters';
+  //call right away to the blizzard api to receive the players
+  //character data.
+  dataService.getCharacterData(function(response) {
+    $scope.realmsData = response;
+  });
 
-    $http.get(charactersApi + "?access_token=" + accessToken)
-    .then(function(res) {
-      $scope.processCharacters(res.data.characters);
-    });
-  }();
+  $scope.changeDisplay = function(display) {
+    $scope.whatToDisplay = display;
+  }
+
+  $scope.yandri = "yandri Sanchez"
+  $scope.selectedRealm = "";
+  $scope.whatToDisplay = "get started";
+  $scope.user = localStorage.getItem("battleTag");
 }
+
+module.exports = MainCtrl;

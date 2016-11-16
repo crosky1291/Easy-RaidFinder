@@ -1,0 +1,26 @@
+<div id='join-raid' ng-show='display.joinRaid'>
+  <p>You are joining a raid for <{{raidToJoin.name}}</p>
+  <form>
+    <div id="role">
+      <label for="role">Role: </label>
+      <select name="role" ng-model="raidToJoin.role">
+        <option ng-repeat="r in ['Tank', 'DPS', 'Healer']">{{r}}</option>
+      </select>
+      <span ng-if="emptyField && !raidToJoin.role" class="form-error">Please shoose a role.</span>
+    </div> <!-- role -->
+    <div id="char-info" class="clearfix">
+      <div id="display-left">
+        <label for="pick-character">Pick a Character:</label>
+        <select name="pick-character" data-ng-attr-size="{{realmsInfo.realmsData[realmsInfo.currentRealm].length}}" ng-model="selectedCharacter" ng-change="currentCharacter()">
+          <option ng-repeat="n in realmsInfo.realmsData[realmsInfo.currentRealm]" value="{{n.name}}">{{n.name}}</option>
+        </select>
+      </div>
+      <div id="display-right">
+        <img src="{{raidPost.character.classImg}}" >
+        <p id="charClass">{{raidPost.character.class}}</p>
+        <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
+      </div>
+    </div>
+    <button  id="create-raid" type="submit" ng-click="verifyForm2()">Join</button>
+  </form>
+</div>

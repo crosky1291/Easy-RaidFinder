@@ -2,12 +2,6 @@
 
 function userCtrl ($scope, $http, $location) {
 
-  var accessToken = localStorage.getItem("access_token");
-
-  if (accessToken === null) {
-    $location.path('/');
-  }
-
   $scope.timeRange = function(low, max, time) {
     var output = [];
 
@@ -34,18 +28,8 @@ function userCtrl ($scope, $http, $location) {
     return $scope.realmsInfo.realmsData[realm].length;
   }
 
+
   
-
-  $scope.getCharacters = function(){
-    var charactersApi = 'https://us.api.battle.net/wow/user/characters';
-
-    $http.get(charactersApi + "?access_token=" + accessToken)
-    .then(function(res) {
-      $scope.processCharacters(res.data.characters);
-    });
-  }();
-
-  $scope.user = localStorage.getItem("battleTag");
   $scope.pickRealm = true;
   $scope.noPostsFound = false;
   $scope.makeRaid = false;
@@ -180,64 +164,12 @@ function userCtrl ($scope, $http, $location) {
     });
   }
 
-  $scope.processCharacters = function(chars) {
-    
-    var realms = {};
-    var classes = {0: 'none', 1: 'Warrior', 2: 'Paladin', 3: 'Hunter', 4: 'Rogue', 5: 'Priest',
-                   6:'Death Knight', 7:'Shaman', 8:'Mage', 9:'Warlock', 10:'Monk', 11:'Druid', 12:'Demon Hunter'};
-
-    var races = {1: 'Human', 2: 'Orc', 3: 'Dwarf', 4: 'Night Elf', 5: 'Undead', 6: 'Tauren', 7: 'Gnome', 8: 'Troll',
-                 9: 'Goblin', 10: 'Blood Elf', 11: 'Draenei', 22: 'Worgen', 24: 'Panda', 25: 'Panda', 26: 'Panda'  };
-    var genders = {0: 'Male', 1: 'Female'};
-
-    chars.forEach(function(char) {
-      var charRealm = char.realm;
-
-      var classPath = classes[char.class].split(" ").join("").toLowerCase();
-      var imgPath = '../images/class_photos/' + classPath + '.png';
-
-      var charInfo = {
-        name: char.name,
-        level: char.level,
-        class: classes[char.class],
-        classImg: imgPath,
-        race: races[char.race],
-        gender: genders[char.gender]
-
-      }
-
-      if (realms[charRealm] === undefined) {
-        realms[charRealm] = [];
-      }
-
-      realms[charRealm].push(charInfo);
-    })  
-
-    $scope.realmsInfo.realmsData = realms;
-  }
+  
 
 
 
   $scope.raidsFound = false;
   $scope.posts;
-  $scope.getRealmData = function(realm) {
-    $http.get( 'api/posts/' + realm)
-    .then(function(req, res) {
-      $scope.selectedCharacter = "";
-      
-     //reset the create-character data
-      for (var i in $scope.raidPost) {
-        $scope.raidPost[i] = "";
-      }
-
-      if (req.status === 204) {
-        $scope.changeDisplay('noPostsFound');
-      } else {
-        $scope.posts = req.data;
-        $scope.changeDisplay('postsFound');
-      }
-    });
-  }
 
   $scope.display = {
     loadingPage: true,
@@ -275,7 +207,7 @@ function userCtrl ($scope, $http, $location) {
   }
 }
 
-module.exports = userCtrl;
+//module.exports = userCtrl;
 
 
 

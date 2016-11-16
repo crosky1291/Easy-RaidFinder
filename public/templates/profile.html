@@ -4,155 +4,33 @@
 <div id="left">
   <img src="../images/wowLogo.png" alt="World of Warcraft Logo">
 </div>
-<div id="right">
-  <form name="myForm">
+<div id="right" >
+  <form name="myForm" ng-controller="raidPostsCtrl">
     <label for="singleSelect"> Current Realm: </label>
-    <select name="singleSelect" ng-model="realmsInfo.currentRealm" ng-style="{'width': getMaxLength() + 'px'}" ng-change="getRealmData(realmsInfo.currentRealm)">
-      <option ng-repeat="(realm, chars) in realmsInfo.realmsData" value="{{realm}}">{{realm}}</option>
+    <select name="singleSelect" ng-model="$parent.selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" 
+      ng-change="getRealmData($parent.selectedRealm); changeDisplay('get started')">
+      <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
     </select>
   </form>
 </div>
 
-<div id="main-info" ng-if="display.loadingPage">
-  <div id="what-to-do">
-    <p>Let's get Started!</p>
+<div ng-switch on="whatToDisplay">
+  <div ng-switch-when="get started" getstarted>
+
   </div>
-  <div id="pick-realm">
-    <form name="select-realm">
-      <label for="singleSelect"> Select a Realm: </label>
-      <select name="singleSelect" ng-model="realmsInfo.currentRealm" ng-style="{'width': getMaxLength() + 'px'}" ng-change="getRealmData(realmsInfo.currentRealm)">
-        <option ng-repeat="(realm, chars) in realmsInfo.realmsData" value="{{realm}}">{{realm}}</option>
-      </select>
-    </form>
-  </div>
+  <!-- <div ng-switch-when="posts found" postsfound></div> -->
 </div>
 
-
-<div id="post-data" ng-if="display.noPostsFound">
+<!-- <div id="post-data" ng-if="display.noPostsFound">
   <div id="what-to-do">
     <p>Sorry no Raid Posts were found for <{{realmsInfo.currentRealm}}>.</p>
   </div>
   <button ng-click="changeDisplay('makeRaid')">Make a Raid</button>
-</div>
+</div> -->
 
-<div id="make-a-raid" ng-show="display.makeRaid">
-  <div>
-    <p id="mkeRaid-title">You are now making a raid for <{{realmsInfo.currentRealm}}></p>
-  </div>
-  <button ng-click="getRealmData(realmsInfo.currentRealm)" id="current-raids">Show current Raids</button>
-  <form id="createRaid">
-    <div id="raid-title">
-      <label for="raid-name">Raid Name: </label>
-      <input id="raid-name" type="text" ng-model="raidPost.name" />
-      <span ng-if="emptyField && !raidPost.name" class="form-error">Please type in a dungeon name.</span>
-    </div> <!-- raid-title -->
-    <div id="raid-date">
-      <label for="raid-date">Raid Date: </label>
-      <select name="raid-date" ng-model="raidPost.date">
-        <option ng-repeat="day in nextSevenDays()">{{day}}</option>
-      </select>
-      <span ng-if="emptyField && !raidPost.date" class="form-error">Please shoose a Date.</span>
-    </div> <!-- raid-date -->
-    <div id="raid-time">
-      <label for="raid-hour">Raid Time: </label>
-      <select name="raid-hour" ng-model="raidPost.hour" ng-change='verifyTimeFormat()'>
-        <option ng-repeat="n in timeRange(1, 12, 'hours')">{{n}}</option>
-      </select>
-      <label for="raid-minute"></label>
-      <select ng-size="{{12}}" name="raid-minute" ng-model="raidPost.minute" ng-change='verifyTimeFormat()'>
-        <option ng-repeat="n in timeRange(0, 59, 'minutes')">{{n}}</option>
-      </select>
-      <label for="am-pm"></label>
-      <select name="am-pm" ng-model="raidPost.amPm" ng-change='verifyTimeFormat()'>
-        <option ng-repeat="n in ['AM', 'PM']">{{n}}</option>
-      </select>
-      <span>(Server Time)</span>
-      <span ng-if="emptyField && !completeTimeFormat" class="form-error">Please shoose a correct time.</span>
-    </div> <!-- raid-time -->
-    <div id="faction">
-      <label for="faction">Faction: </label>
-      <select name="faction" ng-model="raidPost.faction">
-        <option ng-repeat="f in ['Horde', 'Alliance']">{{f}}</option>
-      </select>
-      <span ng-if="emptyField && !raidPost.faction" class="form-error">Please shoose a faction.</span>
-    </div> <!-- faction -->
-    <div id="role">
-      <label for="role">Role: </label>
-      <select name="role" ng-model="raidPost.role">
-        <option ng-repeat="r in ['Tank', 'DPS', 'Healer']">{{r}}</option>
-      </select>
-      <span ng-if="emptyField && !raidPost.role" class="form-error">Please shoose a role.</span>
-    </div> <!-- role -->
-    <div id="char-info" class="clearfix">
-      <div id="display-left">
-        <label for="pick-character">Pick a Character:</label>
-        <select name="pick-character" data-ng-attr-size="{{realmsInfo.realmsData[realmsInfo.currentRealm].length}}" ng-model="selectedCharacter" ng-change="currentCharacter()">
-          <option ng-repeat="n in realmsInfo.realmsData[realmsInfo.currentRealm]" value="{{n.name}}">{{n.name}}</option>
-        </select>
-      </div>
-      <div id="display-right">
-        <img src="{{raidPost.character.classImg}}" >
-        <p id="charClass">{{raidPost.character.class}}</p>
-        <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
-      </div>
-    </div>
-    <span ng-if="emptyField && !raidPost.character" class="form-error">Please shoose a character.</span>
-    <button  id="create-raid" type="submit" ng-click="verifyForm()">Create</button>
-  </form>
-</div>
 
-<div id="raids-found" ng-if='display.postsFound'><p>These are the raids found for <{{realmsInfo.currentRealm}}></p>
-<button ng-click="changeDisplay('makeRaid')" id="create-new-raid">Create New Raid</button>
-  <div id='table-container'>
-    <table>
-      <thead>
-        <tr>
-          <th class="headings">Raid Name</th>
-          <th class="headings">Time & Date</th>
-          <th class="headings">Who's going</th>
-          <th class="headings">Needing</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr raidpost></tr>
-      </tbody>
-    </table>
-  </div> <!-- table-container -->
-</div>
-<div id='join-raid' ng-show='display.joinRaid'>
-  <p>You are joining a raid for <{{raidToJoin.name}}</p>
-  <form>
-    <div id="role">
-      <label for="role">Role: </label>
-      <select name="role" ng-model="raidToJoin.role">
-        <option ng-repeat="r in ['Tank', 'DPS', 'Healer']">{{r}}</option>
-      </select>
-      <span ng-if="emptyField && !raidToJoin.role" class="form-error">Please shoose a role.</span>
-    </div> <!-- role -->
-    <div id="char-info" class="clearfix">
-      <div id="display-left">
-        <label for="pick-character">Pick a Character:</label>
-        <select name="pick-character" data-ng-attr-size="{{realmsInfo.realmsData[realmsInfo.currentRealm].length}}" ng-model="selectedCharacter" ng-change="currentCharacter()">
-          <option ng-repeat="n in realmsInfo.realmsData[realmsInfo.currentRealm]" value="{{n.name}}">{{n.name}}</option>
-        </select>
-      </div>
-      <div id="display-right">
-        <img src="{{raidPost.character.classImg}}" >
-        <p id="charClass">{{raidPost.character.class}}</p>
-        <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
-      </div>
-    </div>
-    <button  id="create-raid" type="submit" ng-click="verifyForm2()">Join</button>
-  </form>
-</div>
-<div id="overlay" ng-show="showWhosGoing" ng-click="showWhosGoing = !showWhosGoing">
 
-  <div  id="whosGoing-container" >
-    <div class='charInfo' ng-repeat="player in postToJoin.whosGoing">
-      <span class="whosGoing whosGoingName">{{player.name}}</span><span class="whosGoing">{{player.level}}</span><span class="whosGoing whosGoingClass">{{player.class}}</span><span class="whosGoing"><img src="{{player.classImg}}"></span>
-    </div>
-  </div>
-</div>
+
 
 
 
