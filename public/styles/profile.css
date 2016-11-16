@@ -14,9 +14,8 @@
 }
 
 #left {
-  width: 20%;
   position: absolute;
-  z-index: 1;
+  width: 20%;
 }
 
 #left img {
@@ -26,10 +25,12 @@
 
 #right {
   position: absolute;
+  display:inline-block;
   font-size: 1.3em;
   width: 70%;
   padding-left: 20px;
   height: 32px;
+  top: 74px;
   right: 0;
   border-bottom: 1px solid #FF794B;
   border-left: 1px solid #FF794B;
@@ -41,7 +42,7 @@
 #make-a-raid,
 #join-raid {
   width: 600px;
-  margin: 150px auto 0;
+  margin: 200px auto 0;
   background-color: rgba(0, 0, 0, 0.7);
   border: 1px solid #FF794B;
   text-align: center;

@@ -8,13 +8,8 @@ function MainCtrl($scope, dataService) {
     $scope.realmsData = response;
   });
 
-  $scope.changeDisplay = function(display) {
-    $scope.whatToDisplay = display;
-  }
 
-  $scope.yandri = "yandri Sanchez"
   $scope.selectedRealm = "";
-  $scope.whatToDisplay = "get started";
   $scope.user = localStorage.getItem("battleTag");
 }
 
