@@ -63,14 +63,13 @@ router.post('/posts/:realm', (req, res) => {
 
 //route requests to join a specific raid post.
 router.put('/:realm/:postId', function(req, res) {
-  var data = req.body;
-  var thisRealm = req.params.realm;
-  var postId = req.params.postId;
-  var thisChar = data.character;
+  var character = req.body,
+      realm = req.params.realm,
+      postId = req.params.postId;
 
   //query the posts of the thisRealm.
   var query = {
-    "realmName": thisRealm,
+    "realmName": realm,
     "posts": { 
       $elemMatch: { 
         "_id": postId
@@ -82,7 +81,7 @@ router.put('/:realm/:postId', function(req, res) {
   //in the correct field.
   var setField = {
     $addToSet: {
-      "posts.$.whosGoing": thisChar
+      "posts.$.whosGoing": character
     }
   }
 

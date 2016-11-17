@@ -5,29 +5,24 @@
   <img src="../images/wowLogo.png" alt="World of Warcraft Logo">
 </div>
 
-<div ng-controller="raidPostsCtrl">
-  <div id="right" >
-    <form name="myForm">
-      <label for="singleSelect"> Current Realm: </label>
-      <select name="singleSelect" ng-model="$parent.selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" 
-        ng-change="getRealmData($parent.selectedRealm)">
-        <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
-      </select>
-    </form>
-  </div>
-
-  <div ng-switch on="whatToDisplay">
-    <div ng-switch-when="get started" getstarted></div>
-    <div ng-switch-when="posts found" postsfound></div>
-  </div>
+<div id="right" >
+  <form name="myForm">
+    <label for="singleSelect"> Current Realm: </label>
+    <select name="singleSelect" ng-model="selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" 
+      ng-change="getRealmData(selectedRealm)">
+      <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
+    </select>
+  </form>
 </div>
 
-<!-- <div id="post-data" ng-if="display.noPostsFound">
-  <div id="what-to-do">
-    <p>Sorry no Raid Posts were found for <{{realmsInfo.currentRealm}}>.</p>
-  </div>
-  <button ng-click="changeDisplay('makeRaid')">Make a Raid</button>
-</div> -->
+<div ng-switch on="whatToDisplay">
+  <div ng-switch-when="get started" getstarted></div>
+  <div ng-switch-when="posts found" postsfound></div>
+  <div ng-switch-when="no posts found" nopostsfound></div>
+  <div ng-switch-when="join raid post" joinraidpost></div>
+  <div ng-switch-when="create raid post" createraidpost></div>
+</div>
+
 
 
 

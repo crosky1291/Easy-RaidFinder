@@ -1,5 +1,5 @@
-<div id='join-raid' ng-show='display.joinRaid'>
-  <p>You are joining a raid for <{{raidToJoin.name}}</p>
+<div id='join-raid'>
+  <p>You are joining a raid for <{{raidToJoin.name}}></p>
   <form>
     <div id="role">
       <label for="role">Role: </label>
@@ -11,16 +11,19 @@
     <div id="char-info" class="clearfix">
       <div id="display-left">
         <label for="pick-character">Pick a Character:</label>
-        <select name="pick-character" data-ng-attr-size="{{realmsInfo.realmsData[realmsInfo.currentRealm].length}}" ng-model="selectedCharacter" ng-change="currentCharacter()">
-          <option ng-repeat="n in realmsInfo.realmsData[realmsInfo.currentRealm]" value="{{n.name}}">{{n.name}}</option>
+        <select name="pick-character" 
+                data-ng-attr-size="{{realmsData[selectedRealm].length}}" 
+                ng-model="$parent.selectedCharacter" 
+                ng-change="updateCharacter('joinRaid')">
+          <option ng-repeat="n in realmsData[selectedRealm]" value="{{n.name}}">{{n.name}}</option>
         </select>
       </div>
       <div id="display-right">
-        <img src="{{raidPost.character.classImg}}" >
-        <p id="charClass">{{raidPost.character.class}}</p>
-        <p id="charStats"> Lvl: {{raidPost.character.level}} | {{raidPost.character.race}} | {{raidPost.character.gender}}</p>
+        <img src="{{raidToJoin.character.classImg}}" >
+        <p id="charClass">{{raidToJoin.character.class}}</p>
+        <p id="charStats"> Lvl: {{raidToJoin.character.level}} | {{raidToJoin.character.race}} | {{raidToJoin.character.gender}}</p>
       </div>
     </div>
-    <button  id="create-raid" type="submit" ng-click="verifyForm2()">Join</button>
+    <button  id="create-raid" type="submit" ng-click="verifyForm('joinRaid')">Join</button>
   </form>
 </div>
