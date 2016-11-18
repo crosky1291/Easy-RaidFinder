@@ -37,9 +37,10 @@ router.get('/posts/:realm', (req, res) => {
 
 //route requests to create a raid post for a specific realm.
 router.post('/posts/:realm', (req, res) => {
-  var data = req.body;
-  var thisRealm = req.params.realm;
-  var thisChar = data.character;
+  var data = req.body,
+      realm = req.params.realm,
+      character = data.character;
+  character.role = data.role;
 
   var newPost = new Post({
     raidName: data.name,
@@ -48,9 +49,9 @@ router.post('/posts/:realm', (req, res) => {
     raidTime: data.hour + ":" + data.minute + " " + data.amPm,
   });
 
-  newPost.whosGoing.push(thisChar);
+  newPost.whosGoing.push(character);
 
-  Realm.findOne({realmName: thisRealm}, (err, realm) => {
+  Realm.findOne({realmName: realm}, (err, realm) => {
     if (err) {
       return res.status(500).send(err.message);
     }

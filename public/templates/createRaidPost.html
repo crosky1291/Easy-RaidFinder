@@ -1,0 +1,68 @@
+<div id="make-a-raid">
+  <div>
+    <p id="mkeRaid-title">You are now making a raid for <{{selectedRealm}}></p>
+  </div>
+  <button ng-click="getRealmData(selectedRealm)" id="current-raids">Show current Raids</button>
+  <form id="createRaid">
+    <div id="raid-title">
+      <label for="raid-name">Raid Name: </label>
+      <input id="raid-name" type="text" ng-model="raidToCreate.name" />
+      <span ng-if="emptyFormField && !raidToCreate.name" class="form-error">Please type in a dungeon name.</span>
+    </div> <!-- raid-title -->
+    <div id="raid-date">
+      <label for="raid-date">Raid Date: </label>
+      <select name="raid-date" ng-model="raidToCreate.date">
+        <option ng-repeat="day in nextSevenDays()">{{day}}</option>
+      </select>
+      <span ng-if="emptyFormField && !raidToCreate.date" class="form-error">Please shoose a Date.</span>
+    </div> <!-- raid-date -->
+    <div id="raid-time">
+      <label for="raid-hour">Raid Time: </label>
+      <select name="raid-hour" ng-model="raidToCreate.hour" ng-change='verifyTimeFormat()'>
+        <option ng-repeat="n in timeRange('hours')">{{n}}</option>
+      </select>
+      <label for="raid-minute"></label>
+      <select ng-size="{{12}}" name="raid-minute" ng-model="raidToCreate.minute" ng-change='verifyTimeFormat()'>
+        <option ng-repeat="n in timeRange('minutes')">{{n}}</option>
+      </select>
+      <label for="am-pm"></label>
+      <select name="am-pm" ng-model="raidToCreate.amPm" ng-change='verifyTimeFormat()'>
+        <option ng-repeat="n in ['AM', 'PM']">{{n}}</option>
+      </select>
+      <span>(Server Time)</span>
+      <span ng-if="emptyFormField && !completeTimeFormat" class="form-error">Please shoose a correct time.</span>
+    </div> <!-- raid-time -->
+    <div id="faction">
+      <label for="faction">Faction: </label>
+      <select name="faction" ng-model="raidToCreate.faction">
+        <option ng-repeat="f in ['Horde', 'Alliance']">{{f}}</option>
+      </select>
+      <span ng-if="emptyFormField && !raidToCreate.faction" class="form-error">Please shoose a faction.</span>
+    </div> <!-- faction -->
+    <div id="role">
+      <label for="role">Role: </label>
+      <select name="role" ng-model="raidToCreate.role">
+        <option ng-repeat="r in ['Tank', 'DPS', 'Healer']">{{r}}</option>
+      </select>
+      <span ng-if="emptyFormField && !raidToCreate.role" class="form-error">Please shoose a role.</span>
+    </div> <!-- role -->
+    <div id="char-info" class="clearfix">
+      <div id="display-left">
+        <label for="pick-character">Pick a Character:</label>
+        <select name="pick-character" 
+                data-ng-attr-size="{{realmsData[selectedRealm].length}}" 
+                ng-model="$parent.selectedCharacter"
+                ng-change="updateCharacter('createRaidPost')">
+          <option ng-repeat="char in realmsData[selectedRealm]" value="{{char.name}}">{{char.name}}</option>
+        </select>
+      </div>
+      <div id="display-right">
+        <img ng-src="{{raidToCreate.character.classImg}}" >
+        <p id="charClass">{{raidToCreate.character.class}}</p>
+        <p id="charStats"> Lvl: {{raidToCreate.character.level}} | {{raidToCreate.character.race}} | {{raidToCreate.character.gender}}</p>
+      </div>
+    </div>
+    <span ng-if="emptyFormField && !raidToCreate.character" class="form-error">Please shoose a character.</span>
+    <button  id="create-raid" type="submit" ng-click="verifyForm('createRaidPost')">Create</button>
+  </form>
+</div>

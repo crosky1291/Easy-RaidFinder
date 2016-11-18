@@ -42,7 +42,7 @@
 #make-a-raid,
 #join-raid {
   width: 600px;
-  margin: 200px auto 0;
+  margin: 150px auto 0;
   background-color: rgba(0, 0, 0, 0.7);
   border: 1px solid #FF794B;
   text-align: center;
@@ -236,7 +236,7 @@ table td {
 }
 
 #whosGoing-container {
-  width: 400px;
+  width: 450px;
   margin: 150px auto 0;
   border: 1px solid #fff;
   padding: 20px 10px;
@@ -254,6 +254,7 @@ table td {
 .whosGoing {
   display: inline-block;
   margin-right: 40px;
+  margin-bottom: 20px;
 }
 
 .whosGoing img {

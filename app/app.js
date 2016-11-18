@@ -22,7 +22,6 @@ function configFunction($routeProvider, $locationProvider) {
 
 }
 
-
 require('./scripts/services');
 require('./scripts/directives');
 require('./scripts/controllers');

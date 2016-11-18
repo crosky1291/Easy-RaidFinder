@@ -6,7 +6,7 @@
       <select name="role" ng-model="raidToJoin.role">
         <option ng-repeat="r in ['Tank', 'DPS', 'Healer']">{{r}}</option>
       </select>
-      <span ng-if="emptyField && !raidToJoin.role" class="form-error">Please shoose a role.</span>
+      <span ng-if="emptyFormField && !raidToJoin.role" class="form-error">Please shoose a role.</span>
     </div> <!-- role -->
     <div id="char-info" class="clearfix">
       <div id="display-left">
@@ -14,16 +14,16 @@
         <select name="pick-character" 
                 data-ng-attr-size="{{realmsData[selectedRealm].length}}" 
                 ng-model="$parent.selectedCharacter" 
-                ng-change="updateCharacter('joinRaid')">
+                ng-change="updateCharacter('joinRaidPost')">
           <option ng-repeat="n in realmsData[selectedRealm]" value="{{n.name}}">{{n.name}}</option>
         </select>
       </div>
       <div id="display-right">
-        <img src="{{raidToJoin.character.classImg}}" >
+        <img ng-src="{{raidToJoin.character.classImg}}" >
         <p id="charClass">{{raidToJoin.character.class}}</p>
         <p id="charStats"> Lvl: {{raidToJoin.character.level}} | {{raidToJoin.character.race}} | {{raidToJoin.character.gender}}</p>
       </div>
     </div>
-    <button  id="create-raid" type="submit" ng-click="verifyForm('joinRaid')">Join</button>
+    <button  id="create-raid" type="submit" ng-click="verifyForm('joinRaidPost')">Join</button>
   </form>
 </div>

@@ -9,7 +9,6 @@ function HomeCtrl ($scope, dataService, $http, $location) {
     console.log("it dosent have code");
   }
   
-  console.log('hello')
   $scope.login = function() {
    
     if (localStorage.getItem("access_token") === null) {

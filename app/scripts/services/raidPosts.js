@@ -12,6 +12,10 @@ function raidPostsService ($http) {
     .then(callback);
   }
 
+  this.createRaidPost = function(realm, raidPost, callback) {
+    $http.post("/api/posts/" + realm, raidPost)
+    .then(callback);
+  }
 };
 
 module.exports = raidPostsService;

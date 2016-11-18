@@ -3,7 +3,7 @@
 function CreateRaidPostDirective () {
   return {
     restrict: "EA",
-    template: require('../../../public/templates/joinRaid.html'),
+    template: require('../../../public/templates/createRaidPost.html'),
     replace: true,
     scope: false
   }

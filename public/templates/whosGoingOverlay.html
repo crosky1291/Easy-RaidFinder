@@ -1,0 +1,12 @@
+<div id="overlay" ng-show="showWhosGoing" ng-click="showWhosGoing = !showWhosGoing">
+  <div  id="whosGoing-container" >
+    <div class='charInfo' ng-repeat="player in clickedPost.whosGoing">
+      <span class="whosGoing whosGoingName">{{player.name}}</span>
+      <span class="whosGoing">{{player.level}}</span>
+      <span class="whosGoing whosGoingClass">{{player.class}}</span>
+      <span class="whosGoing">
+        <img ng-src="{{player.classImg}}">
+      </span>
+    </div>
+  </div>
+</div>
