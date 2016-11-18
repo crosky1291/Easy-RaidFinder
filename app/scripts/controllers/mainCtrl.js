@@ -158,11 +158,6 @@ function MainCtrl($scope, dataService, raidPostsService) {
     });
   }
 
-
-
-
-
-
   $scope.reset = function(obj) {
 
     //resets all the form fields
