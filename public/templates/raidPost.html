@@ -1,9 +1,12 @@
-<tr ng-repeat="post in posts">
+<tr ng-repeat="post in posts" id="post-row">
   <td id="rName">{{post.raidName}}</td>
   <td id="rTime">{{post.raidDate}}<br> @ {{post.raidTime}} (ST)</td>
   <td id="rGoing">
-    <span id='clickToSee' ng-click="showWhosGoingFunc($event)" post="{{post}}"> ({{post.whosGoing.length}}) haved joined<br>Click to see</span>
+    <span id='clickToSee' 
+          ng-click="showWhosGoingFunc($event)" 
+          post="{{post}}"> ({{post.whosGoing.length}}) have joined<br>Click to see
+    </span>
   </td>
-  <td id="rNeeds">(2)Tanks<br>(3)Healers<br>(15)DPS</td>
+  <td id="rNeeds">Feature not Implemented</td>
   <td id="rJoin"><span id="raid-join-button" ng-click="joinRaid($event)" post="{{post}}">Join</span></td>
 </tr>

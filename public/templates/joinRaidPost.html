@@ -21,7 +21,7 @@
       <div id="display-right">
         <img ng-src="{{raidToJoin.character.classImg}}" >
         <p id="charClass">{{raidToJoin.character.class}}</p>
-        <p id="charStats"> Lvl: {{raidToJoin.character.level}} | {{raidToJoin.character.race}} | {{raidToJoin.character.gender}}</p>
+        <p id="charStats" ng-show="selectedCharacter"> Lvl: {{raidToJoin.character.level}} | {{raidToJoin.character.race}} | {{raidToJoin.character.gender}}</p>
       </div>
     </div>
     <button  id="create-raid" type="submit" ng-click="verifyForm('joinRaidPost')">Join</button>

@@ -59,7 +59,7 @@
       <div id="display-right">
         <img ng-src="{{raidToCreate.character.classImg}}" >
         <p id="charClass">{{raidToCreate.character.class}}</p>
-        <p id="charStats"> Lvl: {{raidToCreate.character.level}} | {{raidToCreate.character.race}} | {{raidToCreate.character.gender}}</p>
+        <p id="charStats" ng-show="selectedCharacter"> Lvl: {{raidToCreate.character.level}} | {{raidToCreate.character.race}} | {{raidToCreate.character.gender}}</p>
       </div>
     </div>
     <span ng-if="emptyFormField && !raidToCreate.character" class="form-error">Please shoose a character.</span>

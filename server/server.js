@@ -1,27 +1,29 @@
+'use strict'
 
-
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var router = require('./api/routes');
-var getToken = require('./oauth/getToken');
-var fs = require('fs');
-
+var express = require('express'),
+    path = require('path'),
+    bodyParser = require('body-parser'),
+    fs = require('fs'),
+    router = require('./api/routes'),
+    oauth = require('./oauth/getToken'),
+    token = require('./oauth/getToken'),
 //HTTPS is required for blizzard secret token request to work
 //in order to access player api data
-var https = require('https');
-var privateKey = fs.readFileSync('./server/https_certificates/key.pem', 'utf8');
-var certificate = fs.readFileSync('./server/https_certificates/server.crt', 'utf8');
-var credentials = {
-  key: privateKey,
-  cert: certificate
-};
+    https = require('https'),
+    privateKey = fs.readFileSync('./server/https_certificates/key.pem', 'utf8'),
+    certificate = fs.readFileSync('./server/https_certificates/server.crt', 'utf8'),
+    credentials = {
+      key: privateKey,
+      cert: certificate
+    },
 
 //create the express app
-var app = express();
-require('./database');
-var token = require('./oauth/getToken');
-console.log(token);
+    app = express();
+
+    //the database will start immediately after this line of code.
+    require('./database');
+
+
 var isProduction = process.env.NODE_ENV === 'production';
 var port = isProduction ? process.env.PORT : 3000;
 
@@ -29,105 +31,28 @@ app.use('/', express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', router);
-var qs = require('querystring'),
-    request = require('request'),
-    User = require('./models/User');
-
-//this is my blizzard app info
-//wont be added to github...
-var secrets = require('./oauth/secretInfo');
 
 
-app.post('/callback', (req, respond) => {
-  getUserToken();
-  //this function requets the unique user Token.
-function getUserToken() {
-  var code = req.body.code,
-      redirectUri = "https://localhost:3000",
-      scope = "wow.profile",
-      key = secrets.client_id,
-      secret = secrets.secret,
-      grantType = "authorization_code",
-      tokenUri = "https://us.battle.net/oauth/token?";
+app.post('/callback', (req, res) => {
+  var code = req.body.code;
 
-  //this will be the query string needed to
-  //request the toekn successfully.
-  var token_params = qs.stringify({
-    client_id: key,
-    client_secret: secret,
-    code: code,
-    scope: scope,
-    grant_type: 'authorization_code',
-    redirect_uri: redirectUri
-  });
-
-  //make the request to the token url.
-  return request(tokenUri + token_params, (err, res, body) => {
-
-    if (err) {
-      return console.log(err);
-    }
-
-    var body = JSON.parse(body);
-
-    //if we get the unique token
-    if (body.hasOwnProperty('access_token')) {
-      var token = body['access_token']
-
-      return requestAccount(token);
+  //Try to get the unique access Token from blizzards token api
+  oauth.getUserToken(code, (tokenResponse) => {
+    if (tokenResponse.accessToken !== undefined) {
+      //send the token to the client
+      res.status(200).json(tokenResponse);
     }
   });
-};
-
-function requestAccount(token) {
-  var userApi = 'https://us.api.battle.net/account/user';
-
-  //request the users unique account id from blizzard.
-  return request(userApi + "?access_token=" + token, function(err, res, body) {
-
-    if (err) {
-      return console.log(err);
-    }
-
-    var body = JSON.parse(body),
-        battleTag = body.battletag.split('#')[0],
-        account = body.id,
-        thisUser = new User({battleTag: battleTag, account: account});
-
-    //add the user account to the database.
-    addUserToDatabase(thisUser);
-
-    //send the token and the account battletag back to the client
-    respond.status(200).json({accessToken: token, battleTag: battleTag});
-  });
-}
-
-function addUserToDatabase(thisUser) {
-
-  User.findOne({account: thisUser.account}, (err, user) => {
-    if (err) {
-      return console.log(err);
-    }
-    
-    //if the user is not in the database add it.
-    if (!user) {
-      thisUser.save((err, result) => {
-        if (err) return console.log(err);
-        console.log('Saved User to database.')
-      });
-    }
-  });
-}
 });
 
-
+//create the https server
 var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(port, function() {
   console.log('The server is running on port ' + port + '!.');
 });
 
 
-// We only want to run the workflow when not in production
+// We only want to run the workflow in development
 if (!isProduction) {
   
   // We require the bundler inside the if block because
@@ -147,7 +72,7 @@ if (!isProduction) {
 
 }
 
-
+//proxy server communication from the webpack-dev-server to the actual https express server.
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({
   changeOrigin: true 

@@ -304,6 +304,10 @@ table td {
   color: red;
 }
 
+#post-row {
+  margin-bottom: 15px;
+}
+
 .clearfix:after {
   content: "";
   display: table;

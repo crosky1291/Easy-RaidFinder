@@ -5,7 +5,7 @@
   <div id="pick-realm">
     <form name="select-realm">
       <label for="singleSelect"> Select a Realm: </label>
-      <select name="singleSelect" ng-model="$parent.selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" ng-change="getRealmData(selectedRealm)">
+      <select name="singleSelect" ng-model="$parent.selectedRealm" ng-change="getRealmData(selectedRealm)">
         <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
       </select>
     </form>

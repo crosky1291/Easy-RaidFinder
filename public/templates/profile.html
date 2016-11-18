@@ -8,13 +8,13 @@
 <div id="right" >
   <form name="myForm">
     <label for="singleSelect"> Current Realm: </label>
-    <select name="singleSelect" ng-model="selectedRealm" ng-style="{'width': getMaxLength() + 'px'}" 
-      ng-change="getRealmData(selectedRealm)">
+    <select name="singleSelect" ng-model="selectedRealm" ng-change="getRealmData(selectedRealm)">
       <option ng-repeat="(realm, chars) in realmsData" value="{{realm}}">{{realm}}</option>
     </select>
   </form>
 </div>
 
+<!-- switch directives depending on user choice -->
 <div ng-switch on="whatToDisplay">
   <div ng-switch-when="get started" getstarted></div>
   <div ng-switch-when="posts found" postsfound></div>
