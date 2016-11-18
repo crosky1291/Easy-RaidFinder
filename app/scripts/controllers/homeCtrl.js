@@ -2,6 +2,8 @@
 
 function HomeCtrl ($scope, dataService, $http, $location) {
 
+  //check if the url has the code from blizzard
+  //if so send them to /callback for verification and to request an access_token.
   var qs = $location.absUrl();
   if (qs.indexOf('code') !== -1) {
     $location.path( "/callback" ).replace();
@@ -9,6 +11,9 @@ function HomeCtrl ($scope, dataService, $http, $location) {
     console.log("it dosent have code");
   }
   
+  //check if theres already a valid access token stored
+  //if not redirect the user and have them login at blizzard so we can have back another key
+  //and we can request a new token.
   $scope.login = function() {
    
     if (localStorage.getItem("access_token") === null) {

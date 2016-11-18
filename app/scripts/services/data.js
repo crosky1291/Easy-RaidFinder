@@ -59,7 +59,7 @@ function DataService ($http) {
 
     //return the realms object with all the characters inside the realm they belong to.
     return realms;
-  } 
+  }
 };
 
 module.exports = DataService;
