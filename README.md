@@ -1,13 +1,13 @@
 ![Alt text](public/images/easyLogo.png?raw=true "Easy Raid-Finder Logo");
 
-Technologies Used:;
-Angular.js
-Node.js
-Express.js
-MongoDB
-oAuth Authentication
-Webpack and Webpack-dev-server
-Proxy server that connects between the express and the webpack dev server!! too awesome!!!
+Technologies Used:::::
+Angular.js::::::
+Node.js::::::
+Express.js::::::
+MongoDB::::::
+oAuth Authentication::::::
+Webpack and Webpack-dev-server::::::
+Proxy server that connects between the express and the webpack dev server!! too awesome!!!::::::
 Has a Webpack production build as well
 
 
