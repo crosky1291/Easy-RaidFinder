@@ -57,3 +57,19 @@ body {
 	border-radius: 10px;
 	letter-spacing: 4px;
 }
+
+#home-logo {
+  position: absolute;
+  display: inline;
+  top: 100px;
+  left: 0;
+  margin-left: 20px;
+  width: 15%;
+  z-index: 2;
+}
+
+#home-logo img {
+
+  display: block;
+  width: 100%;
+}

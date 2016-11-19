@@ -9,8 +9,25 @@
   font-family: 'Shojumaru', cursive;
   letter-spacing: 2px;
   font-size: 3em;
-  text-align: center;
+  margin-left: 200px;
   color: #FF794B;
+}
+
+#app-logo {
+  position: absolute;
+  display: inline;
+  top: 0;
+  right: 0;
+  margin-top: -15px;
+  margin-right: 70px;
+  width: 15%;
+  z-index: 2;
+}
+
+#app-logo img {
+
+  display: block;
+  width: 100%;
 }
 
 #left {
