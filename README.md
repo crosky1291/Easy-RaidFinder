@@ -1,5 +1,3 @@
-# Easy-RaidFinder
-
 ![Alt text](public/images/easyLogo.png?raw=true "Easy Raid-Finder Logo");
 
 Technologies Used:
