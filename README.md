@@ -1,5 +1,8 @@
 ![Alt text](public/images/easyLogo.png?raw=true "Easy Raid-Finder Logo");
 
+Here is a quick video of the app
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/O9d838F5buw/0.jpg)](https://youtu.be/O9d838F5buw)
+
 Technologies Used:::::
 Angular.js::::::
 Node.js::::::

@@ -22,10 +22,11 @@ router.get('/posts/:realm', (req, res) => {
         if (err) return console.log(err);
         return console.log('Successfully saved realm ' + thisRealm + ' to database.')
       })
-      
+      //tell client
+      return res.status(204).send();
     }
 
-    //let client know that there are no posts.
+    //let client know that there are no posts if realm exits.
     if (realm.posts.length === 0) {
       return res.status(204).send();
     } 
